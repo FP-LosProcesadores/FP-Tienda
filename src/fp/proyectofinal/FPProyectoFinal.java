@@ -99,7 +99,7 @@ public class FPProyectoFinal {
                 {
                     while (prevItemInfo[j][0].contains(code)||inputCodes.equals(code))
                     {
-                        System.out.println("Esta clave ya existe.");
+                        System.err.println("Esta clave ya existe.");
                         code=getString("otra clave del producto");
                     }
                 }
@@ -114,7 +114,7 @@ public class FPProyectoFinal {
         }
         catch (NumberFormatException e)
         {
-            System.out.println("Por favor, ingrese un número");
+            System.err.println("Por favor, ingrese un número valido");
         }
     }
     public static void createFile(String[][] arrayInput, String fileName, boolean edit) //Se encarga de crear el archivo, utilizando la información del arreglo
@@ -183,6 +183,7 @@ public class FPProyectoFinal {
         {
             PrintWriter write = new PrintWriter (new FileOutputStream(file, true));//new FileOutputStream(file, true)Instancia un objeto tipo PrintWriter, el cual escribe caracter por caracter.
             write.append(inputAppend);  //Arrays.toString toma como parámetro el arreglo, y lo escribe en el documento.
+            write.println("");
             write.println("-------------------------");
             write.close();  //Se cierra el archivo.
         }
@@ -345,8 +346,17 @@ public class FPProyectoFinal {
     public static void close ()
     {
         System.out.println("Se realizará el cierre del día");
-        
+        System.out.println("********************************");
+        System.out.println("Las compras del día de hoy fueron:");
+        DateFormat df = new SimpleDateFormat("MM.dd.yyyy");
+        Date today = Calendar.getInstance().getTime();
+        String reportDate = df.format(today);
+        String fileName="Cierre"+reportDate+".txt";
+        showFile(fileName);
+        System.out.println("********************************");
         System.out.println("Las ganancias del día de hoy son: "+dayEarnings);
+        System.out.println("¡Gracias por usar el programa!");
+        System.exit(0);
     }
     public static void restart  () //Se encarga de regresar al menú, utilizando S,s o N,n. Se hizo un método para ahorrar código.
     {
