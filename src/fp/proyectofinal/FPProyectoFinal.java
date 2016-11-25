@@ -110,9 +110,9 @@ public class FPProyectoFinal {
                 itemInfo[0][1]=""+getInt("cantidad del producto");  //Utiliza getInt para pedir la cantidad en existencia
                 itemInfo[0][2]=getString("descripción del producto"); //Utiliza getString para pedir la descripción
                 itemInfo[0][3]=""+getInt("precio del producto");  //Utiliza getInt para pedir el precio
+                createFile(itemInfo,"inventory.txt",false); //Agrega los nuevos productos a inventory.txt, o lo crea si no existe.
             }
             System.out.println("Se han agregado los productos, se le redireccionará al menú");
-            createFile(itemInfo,"inventory.txt",false); //Agrega los nuevos productos a inventory.txt, o lo crea si no existe.
             Menu(); //Regresa al menú
         }
         catch (NumberFormatException e) //catch en caso de que no se ingrese un número valido.
