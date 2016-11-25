@@ -310,39 +310,38 @@ public class FPProyectoFinal {
         ArrayList<ArrayList<String>> Yinventory = new ArrayList<ArrayList<String>>(); //Se crea una ArrayList bidimensional
         try
         {
-            File file = new File("inventory.txt");
-            try (Scanner scan = new Scanner(file))
+            File file = new File("inventory.txt"); //Se instancia File, con el nombre de inventory.txt
+            try (Scanner scan = new Scanner(file)) //Se utiliza Scanner para leer el archivo
             {
-                scan.useDelimiter("\\|");
-                while (scan.hasNext()) 
+                scan.useDelimiter("\\|");   //Utilizamos Scanner para utilizar la función del delimitador
+                while (scan.hasNext())      //Si lee que tiene el símbolo "|"
                 {
                     for(int counter=0;counter<3;counter++)
                     {
                         try
                         {
-                            ArrayList<String> Xinventory = new ArrayList<String>();
+                            ArrayList<String> Xinventory = new ArrayList<String>(); //Crea un ArrayList unidimensional, serían las "x" del eje
+                            Xinventory.add(scan.next()); //Agrega Clave,cantidad,descripción y precio.
                             Xinventory.add(scan.next());
                             Xinventory.add(scan.next());
                             Xinventory.add(scan.next());
-                            Xinventory.add(scan.next());
-                            Yinventory.add(counter, Xinventory);
+                            Yinventory.add(counter, Xinventory);//Agrega a la lista bidimensional la lista unidimensional
                         }
-                        catch (NoSuchElementException e)
+                        catch (NoSuchElementException e) //Si encuentra que ya no hay mas elementos
                         {
-                            counter=4;
+                            counter=4;  //Fuerza la salida del ciclo
                         }
                     }
                 }
-                // closing the scanner stream
-                scan.close();
+                scan.close(); //Cierra el Scanner
             }
-            inventoryArray = new String[Yinventory.size()][4];
-            for (int i=0; i < Yinventory.size(); i++) 
+            inventoryArray = new String[Yinventory.size()][4]; //le da propiedades al arreglo, la cantidad de datos que leimos * 4 características
+            for (int i=0; i < Yinventory.size(); i++)  //Recorre el arreglo
             {
-                ArrayList<String> row = Yinventory.get(i);
-                inventoryArray[i] = row.toArray(new String[row.size()]);
+                ArrayList<String> row = Yinventory.get(i);  //Consigue cada fila
+                inventoryArray[i] = row.toArray(new String[row.size()]);  //Y rellena las filas del arreglo.
             }
-            return inventoryArray;
+            return inventoryArray; //Se regresa un arreglo en lugar de un ArrayList
         } 
         catch (FileNotFoundException e)
         {
@@ -353,25 +352,24 @@ public class FPProyectoFinal {
             return inventoryArray;
         }
     }
-    public static void close ()
-    {
-        System.out.println("Se realizará el cierre del día");
+    public static void close () //Realiza el cierre
+    { 
+        System.out.println("Se realizará el cierre del día"); //Imprime mensaje
         System.out.println("********************************");
-        System.out.println("Las compras del día de hoy fueron:");
-        DateFormat df = new SimpleDateFormat("MM.dd.yyyy");
+        System.out.println("Las compras del día de hoy fueron:"); 
+        DateFormat df = new SimpleDateFormat("MM.dd.yyyy"); //Consigue el día de hoy con formato
         Date today = Calendar.getInstance().getTime();
         String reportDate = df.format(today);
-        String fileName="Cierre"+reportDate+".txt";
-        showFile(fileName);
+        String fileName="Cierre"+reportDate+".txt"; 
+        showFile(fileName); //Y enseña el archivo de cierre
         System.out.println("********************************");
-        System.out.println("Las ganancias del día de hoy son: "+dayEarnings);
+        System.out.println("Las ganancias del día de hoy son: "+dayEarnings); //Imprime la variable global
         System.out.println("¡Gracias por usar el programa!");
-        System.exit(0);
+        System.exit(0); //Sale
     }
     public static void showFile(String fileName) //Se encarga de leer e imprimir el texto de los archivos.
     {
-        Scanner in=new Scanner (System.in);
-        File file = new File (fileName); //Pide el nombre del archivo, y le agrega la extensión.
+        File file = new File (fileName); 
         String cadena="";
         try (FileReader lectura = new FileReader(file)) //Intenta instanciar un objeto FileReader
         {
