@@ -69,6 +69,7 @@ public class FPProyectoFinal {
         {
             case 1:
                 showFile("inventory.txt");
+                invMenu();
                 break;
             case 2:
                 newItems();
@@ -249,6 +250,11 @@ public class FPProyectoFinal {
                                 amount=inStock;
                                 AddToTicket(itemInfo[j],amount,nOfPurch);
                                 itemInfo[j][1]=String.valueOf(Integer.parseInt(itemInfo[j][1])-amount);
+                                DateFormat df = new SimpleDateFormat("MM.dd.yyyy");
+                                Date today = Calendar.getInstance().getTime();
+                                String reportDate = df.format(today);
+                                String fileName="Cierre"+reportDate+".txt";
+                                createFile(dayItemsPurchased, fileName,false);
                             }
                             else
                             {
@@ -256,6 +262,11 @@ public class FPProyectoFinal {
                                 sale+=amount*Integer.parseInt(itemInfo[j][3]);
                                 AddToTicket(itemInfo[j],amount,nOfPurch);
                                 itemInfo[j][1]=String.valueOf(Integer.parseInt(itemInfo[j][1])-amount);
+                                DateFormat df = new SimpleDateFormat("MM.dd.yyyy");
+                                Date today = Calendar.getInstance().getTime();
+                                String reportDate = df.format(today);
+                                String fileName="Cierre"+reportDate+".txt";
+                                createFile(dayItemsPurchased, fileName,false);
                             }
                         }
                     }
@@ -266,11 +277,6 @@ public class FPProyectoFinal {
                 dayEarnings+=sale;
                 System.out.println("La venta fue exitosa, el total es: "+sale);
                 createFile(itemInfo, "inventory.txt",true);
-                DateFormat df = new SimpleDateFormat("MM.dd.yyyy");
-                Date today = Calendar.getInstance().getTime();
-                String reportDate = df.format(today);
-                String fileName="Cierre"+reportDate+".txt";
-                createFile(dayItemsPurchased, fileName,false);
                 Menu();
             }
             catch(ArrayIndexOutOfBoundsException e)
@@ -358,36 +364,6 @@ public class FPProyectoFinal {
         System.out.println("¡Gracias por usar el programa!");
         System.exit(0);
     }
-    public static void restart  () //Se encarga de regresar al menú, utilizando S,s o N,n. Se hizo un método para ahorrar código.
-    {
-        String opt;
-        Scanner in = new Scanner(System.in);
-        System.out.println("¿Desea regresar al menú?[S/N]"); //Se recibe la elección del usuario
-        opt =in.nextLine();
-        switch (opt)
-        {
-            case "S":   //En caso de decir si, se regresa al Menú
-                System.out.println("------------------------------------------------------------------");
-                Menu();
-                break;
-            case "s":
-                System.out.println("------------------------------------------------------------------");
-                Menu();
-                break;
-            case "N":  //En caso de decir no, se sale del programa
-                System.out.println("Gracias por usar el programa!");
-                System.exit(0);
-                break;
-            case "n":
-                System.out.println("Gracias por usar el programa!");
-                System.exit(0);
-                break;
-            default: //En caso de no elegir ninguna opción valida, reinicia el método para volver a pedir la elección
-                System.out.println("Opción no valida, ingrese [S] para continuar, o [N] para salir ");
-                restart(); 
-                break;
-        }
-    }   
     public static void showFile(String fileName) //Se encarga de leer e imprimir el texto de los archivos.
     {
         Scanner in=new Scanner (System.in);
@@ -413,6 +389,5 @@ public class FPProyectoFinal {
             System.out.println("------------------------------------------------------------------");
             Menu(); //Y regresa al usuario al menú principal.
         } 
-        restart();  //En caso de ser exitoso, manda al usuario a las opciones de restart()
     }
 }
