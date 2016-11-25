@@ -145,7 +145,13 @@ public class FPProyectoFinal {
                 {
                     write.append(arrayInput[j][i]+"|");  //Arrays.toString toma como parámetro el arreglo, y lo escribe en el documento.
                 }
-                write.println();
+                if(edit!=true)
+                {
+                    if(j>=arrayInput.length)
+                    {
+                        write.println();
+                    }
+                }
             }
             write.close();  //Se cierra el archivo.
         }
